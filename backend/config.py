@@ -10,4 +10,4 @@ app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
 
-#this is a test for commit. Please delet
+#this is a test for commit. Please delete
