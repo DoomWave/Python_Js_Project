@@ -28,6 +28,35 @@ def create_contact():
         db.session.commit() 
     except Exception as e:
         return jsonify({"message": str(e)}), 400
+    
+    return jsonify({"message": "User created!"}), 201
+
+
+@app.route("/update_contact/<int:user_id>", method=["PATH"])
+def update_contact(user_id):
+    contact = Contact.query.get(user_id)
+
+    if not contact: 
+        return jsonify({"message": "User not found"}), 404
+    
+    data = request.json
+    contact.first_name = data.get("firstName", contact.first_name)
+    contact.last_name = data.get("lastName", contact.last_name)
+    contact.email = data.get("email", contact.email)
+
+    db.session.commit()
+
+    return jsonify({"message": "User updated"}), 200
+
+@app.route("/delete_contact/<int:user_id>", method=["DELETE"])
+def delete_contact(user_id):
+    contact = Contact.query.get(user_id)
+
+    db.session.delete(contact)
+    db.session.commit()
+
+    return jsonify({"message": "User deleted!"}), 200
+
 
 if __name__ == "__main__":
     with app.app_context():
