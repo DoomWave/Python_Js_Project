@@ -1,8 +1,12 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 
 function App() {
   const [contacts, SetContacts] = useState([])
+
+  useEffect(() => {
+    fetchContacts()
+  }, [])
 
   const fetchContacts = async () => {
     const response = await fetch("http://127.0.0.:5000/contacts")
